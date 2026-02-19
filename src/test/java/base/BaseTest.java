@@ -55,9 +55,9 @@ public class BaseTest {
 
     public void setBrowser(String browser) {
         //for selenide
-        Configuration.browser = browser;
-        Configuration.screenshots = true;
-        Configuration.savePageSource = false;
+        //Configuration.browser = browser;
+        //Configuration.screenshots = true;
+        //Configuration.savePageSource = false;
 
         if (browser.equals("firefox")) {
             FirefoxOptions firefoxOptions = new FirefoxOptions();
@@ -66,19 +66,19 @@ public class BaseTest {
             firefoxOptions.addArguments("--headless=new");
 
             //for selenide
-            Configuration.browserCapabilities = firefoxOptions;
-            //driver = new FirefoxDriver(firefoxOptions);
+            //Configuration.browserCapabilities = firefoxOptions;
+            driver = new FirefoxDriver(firefoxOptions);
         } else {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.addArguments("--headless=new");
 
             //for selenide
-            Configuration.browserCapabilities = chromeOptions;
-            //driver = new ChromeDriver(chromeOptions);
+            //Configuration.browserCapabilities = chromeOptions;
+            driver = new ChromeDriver(chromeOptions);
 
         }
         // for selenide
-        com.codeborne.selenide.Selenide.open("about:blank");
-        driver = WebDriverRunner.getWebDriver();
+        //com.codeborne.selenide.Selenide.open("about:blank");
+        //driver = WebDriverRunner.getWebDriver();
     }
 }

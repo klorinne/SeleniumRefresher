@@ -31,8 +31,5 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Install Chrome
-        run: ./setup.sh
-
-      - name: Run tests
-        run: mvn test
+      - name: Build and run tests
+        run: mvn clean test
