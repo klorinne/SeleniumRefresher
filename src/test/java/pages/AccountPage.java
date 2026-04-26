@@ -2,6 +2,8 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import utils.WaitUtils;
 
 public class AccountPage {
 
@@ -11,5 +13,11 @@ public class AccountPage {
 
     public AccountPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public String getAccountPageTitle() {
+        WebElement accountPageTitle = WaitUtils.waitForVisible(driver, pageTitleLocator);
+
+        return accountPageTitle.getText().trim();
     }
 }

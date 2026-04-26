@@ -28,14 +28,6 @@ public class LoginTest extends BaseTest {
 
         //Verify Account Page
         AccountPage accountPagePom = new AccountPage(driver);
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement alert = wait.until(
-                ExpectedConditions.visibilityOfElementLocated((accountPagePom.pageTitleLocator))
-        );
-
-        String accountPageTitle = driver.findElement(accountPagePom.pageTitleLocator).getText();
-
-        assertEquals("My account", accountPageTitle);
-
+        assertEquals("My account", accountPagePom.getAccountPageTitle());
     }
 }
