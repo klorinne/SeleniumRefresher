@@ -27,7 +27,6 @@ public class BaseTest {
         //options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
 
         setBrowser("chrome");
-        driver.manage().window().maximize();
         //setSeleniumGrid(browser);
 
     }
@@ -72,6 +71,7 @@ public class BaseTest {
         } else {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.addArguments("--headless=new");
+            chromeOptions.addArguments("--window-size=1920,1080");
 
             //for selenide
             //Configuration.browserCapabilities = chromeOptions;
