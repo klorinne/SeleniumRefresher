@@ -2,7 +2,9 @@ package tests;
 
 import base.BaseTest;
 import org.junit.jupiter.api.Test;
-import pages.TransactionPage;
+import pages.CheckoutPage;
+import pages.HomePage;
+import pages.ProductPage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,35 +14,37 @@ public class TransactionsTest extends BaseTest {
     public void testSuccessfulPurchaseFlow() {
         driver.get("https://practicesoftwaretesting.com/");
 
-        TransactionPage transactionPom = new TransactionPage(driver);
+        HomePage homePagePom = new HomePage(driver);
+        ProductPage productPagePom = new ProductPage(driver);
+        CheckoutPage checkoutPagePom = new CheckoutPage(driver);
 
-        transactionPom.searchProduct("Bolt Cutters");
-        transactionPom.clickBoltCutterProduct();
+        homePagePom.searchProduct("Bolt Cutters");
+        homePagePom.clickBoltCutterProduct();
 
         // assert productname
-        assertEquals("Bolt Cutters", transactionPom.getProductName());
+        assertEquals("Bolt Cutters", productPagePom.getProductName());
         assertEquals("Bolt Cutters - Practice Software Testing - Toolshop - v5.0",
                 driver.getTitle(), "Page Title is expected");
 
         //add to cart flow
-        transactionPom.addBoltCutterToCart();
-        String addToCartMessage = transactionPom.viewAddedToCartAlert();
+        productPagePom.addBoltCutterToCart();
+        String addToCartMessage = productPagePom.viewAddedToCartAlert();
         assertEquals("Product added to shopping cart.",
                 addToCartMessage, "Product added to cart alert was visible");
 
-        String cartCount = transactionPom.viewCartCount();
+        String cartCount = productPagePom.viewCartCount();
         assertEquals("3", cartCount);
 
         // checkout flow
-        transactionPom.clickCart();
+        homePagePom.clickCart();
         assertEquals("https://practicesoftwaretesting.com/checkout",
                 driver.getCurrentUrl(), "Redirected to Checkout Page");
         assertEquals("Checkout - Practice Software Testing - Toolshop - v5.0",
                 driver.getTitle(), "Page Title is expected");
 
-        transactionPom.checkoutBoltCutter();
+        checkoutPagePom.checkoutBoltCutter();
 
-        String checkoutMessage = transactionPom.viewSuccessfulPurchaseAlert();
+        String checkoutMessage = checkoutPagePom.viewSuccessfulPurchaseAlert();
         assertEquals("Payment was successful",
                 checkoutMessage, "Payment was successful");
     }

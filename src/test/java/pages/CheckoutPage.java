@@ -6,23 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import utils.WaitUtils;
 
-public class TransactionPage {
-
-    public WebDriver driver;
-    public WaitUtils wait;
-
-    public By searchBarLocator = By.id("search-query");
-    public By searchButtonLocator = By.cssSelector("button[data-test='search-submit']");
-    public By searchResultsLocator = By.cssSelector("div[data-test='search_completed']");
-    public By boltCutterCardLocator = By.xpath("//h5[normalize-space()='Bolt Cutters']/ancestor::a");    public By productNameLocator = By.cssSelector("h1[data-test='product-name']");
-    public By increaseQuantityLocator = By.id("btn-increase-quantity");
-    public By addToCartButtonLocator = By.id("btn-add-to-cart");
-    public By addedToCartMessageLocator = By.cssSelector("div[role='alert'].toast-message");
-    public By cartCountLocator = By.id("lblCartCount");
-    public By cartButtonLocator = By.cssSelector("a[data-test=\"nav-cart\"]");
+public class CheckoutPage extends CommonPage {
 
     // checkout step 1
-    public By checkoutStepsLocator = By.cssSelector("ul.steps-indicator");
     public By proceedStep1ButtonLocator = By.cssSelector("button[data-test=\"proceed-1\"]");
 
     // checkout step 2 - guest
@@ -46,55 +32,8 @@ public class TransactionPage {
     public By submitPurchaseButtonLocator = By.cssSelector("button[data-test=\"finish\"]");
     public By paymentSuccessMessageLocator = By.cssSelector("div[data-test=\"payment-success-message\"]");
 
-    public TransactionPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public void searchProduct(String productName) {
-        WebElement searchBar = WaitUtils.waitForVisible(driver, searchBarLocator);
-        WebElement searchButton = WaitUtils.waitForClickable(driver, searchButtonLocator);
-        searchBar.sendKeys(productName);
-        searchButton.click();
-    }
-
-    public void clickBoltCutterProduct() {
-        WaitUtils.waitForVisible(driver, searchResultsLocator);
-        WebElement product = WaitUtils.waitForClickable(driver, boltCutterCardLocator);
-        product.click();
-    }
-
-    public String getProductName() {
-        WebElement product = WaitUtils.waitForVisible(driver, productNameLocator);
-        return product.getText().trim();
-    }
-
-    public void addBoltCutterToCart() {
-        // add 3 bolt cutters
-        WebElement increaseQuantityButton = WaitUtils.waitForClickable(driver, increaseQuantityLocator);
-        increaseQuantityButton.click();
-        increaseQuantityButton.click();
-
-        WebElement addToCartButton = WaitUtils.waitForClickable(driver, addToCartButtonLocator);
-        addToCartButton.click();
-    }
-
-    public String viewAddedToCartAlert() {
-        WebElement addToCartMessage = WaitUtils.waitForVisible(driver, addedToCartMessageLocator);
-
-        return addToCartMessage.getText().trim();
-    }
-
-    public String viewCartCount() {
-        WaitUtils.waitForInvisibility(driver, addedToCartMessageLocator);
-        WebElement cartCount = WaitUtils.waitForVisible(driver, cartCountLocator);
-
-        return cartCount.getText().trim();
-    }
-
-    public void clickCart() {
-        WebElement cartButton = WaitUtils.waitForClickable(driver, cartButtonLocator);
-        cartButton.click();
-        WaitUtils.waitForVisible(driver, checkoutStepsLocator);
+    public CheckoutPage(WebDriver driver) {
+        super(driver);
     }
 
     public void checkoutBoltCutter() {
@@ -153,7 +92,6 @@ public class TransactionPage {
 
     public String viewSuccessfulPurchaseAlert() {
         WebElement paymentSuccessMessage = WaitUtils.waitForVisible(driver, paymentSuccessMessageLocator);
-
         return paymentSuccessMessage.getText().trim();
     }
 }
